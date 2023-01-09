@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Write a description of class ArrayListNotes here.
@@ -10,7 +11,19 @@ public class ArrayListNotes
 {
     public static void main(String[] args)
     {
-        
+     /*
+      * Arraylist is a Java Generic
+      * 
+      * We have to specify the class type of the elements in the list in angle 
+      *     brackets (i.e., <>) after every ArrayList identifier
+      *     
+      * Primitives (e.g., int, double, boolean) are not classes and cannot be 
+      *      specified as the type of the element in a generic. Instead, we can 
+      *      use the corresponding Wrapper Classes (e.g., Integer, Double, Boolean)
+      *     
+      */   
+     
+     removeEvens(createRandomIntegerList(10,2));
     }
     
     /**
@@ -25,9 +38,23 @@ public class ArrayListNotes
      */
     public static ArrayList<Integer> createRandomIntegerList(int size, int range)
     {
-        return null;
+        Random r = new Random();
+        
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for(int x = 0; x<size;x++){
+            /*
+             * The add method adds the specified object to the end of the list
+             * 
+             * Autoboxing:
+             *  Primitive values are automatically converted to their corresponding 
+             *          Wrapper class. However, type promotion does not occur.
+             */
+            list.add(r.nextInt(range)+1);
+        }
+        System.out.println(list);
+        return list;
     }
-    	 
+         
     
     /**
      * Removes even numbers from the specified list.
@@ -36,7 +63,37 @@ public class ArrayListNotes
      */
     public static void removeEvens(ArrayList<Integer> list)
     {
-    	
+        /*
+         * The size method returns the number of elements in the list
+         */
+        int size = list.size();
+        
+        for(int i = 0; i<list.size(); i++){
+            if(list.get(i)%2==0){
+                /*
+                 * The remove method deletes the element at the specified index
+                 */
+                list.remove(i);
+                i--;
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        for(int i = size-1; i>=0; i--){
+            if(list.get(i)%2==0){
+                /*
+                 * The remove method deletes the element at the specified index
+                 */
+                list.remove(i);
+            }
+        }
+        System.out.println(list);
+        
     }
     
     public static void removeEvensAlt(ArrayList<Integer> list)

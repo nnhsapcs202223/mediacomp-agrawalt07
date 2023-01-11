@@ -23,7 +23,7 @@ public class ArrayListNotes
       *     
       */   
      
-     removeEvens(createRandomIntegerList(10,2));
+     sumList(createRandomIntegerList(10,2));
     }
     
     /**
@@ -77,13 +77,11 @@ public class ArrayListNotes
                 i--;
             }
         }
-        
-        
-        
-        
-        
-        
-        
+    }
+    
+    public static void removeEvensAlt(ArrayList<Integer> list)
+    {
+        int size = list.size();
         for(int i = size-1; i>=0; i--){
             if(list.get(i)%2==0){
                 /*
@@ -93,20 +91,37 @@ public class ArrayListNotes
             }
         }
         System.out.println(list);
-        
-    }
-    
-    public static void removeEvensAlt(ArrayList<Integer> list)
-    {
-        
     }
     
     public static int sumList(ArrayList<Integer> list)
     {
         int sum = 0;
+        /*
+         * arrayLists work with enhanced for loops too. 
+         * 
+         * Java will automatically unbox wrapper class objects to fit with the primitive types.
+         * Do not add or remove anything with an enhanced for loop. ConcurrentModificationException
+         * 
+         * 
+         * for(int x = 0; x<list.size(); x++){
+             sum+=list.get(x);
+            }
+            
+            
+            
+         */ 
         
         
-        
+        for(int x : list){
+            sum+=x;
+        }
+         
+         
+         
+        System.out.println(sum);
         return sum;
+        
+        
+        
     }
 }

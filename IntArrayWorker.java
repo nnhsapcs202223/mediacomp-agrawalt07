@@ -97,6 +97,9 @@ public class IntArrayWorker
           matrix[row][col] = 3;
       }
     }
+    
+    
+    public void getCount()
   }
  
 }

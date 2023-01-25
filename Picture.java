@@ -4,7 +4,9 @@ import java.awt.geom.*;
 import java.awt.image.BufferedImage;
 import java.text.*;
 import java.util.*;
-import java.util.List; // resolves problem with java.awt.List and java.util.List
+import java.util.List;
+import java.awt.Color;
+import javax.imageio.ImageIO; // resolves problem with java.awt.List and java.util.List
 
 /**
  * A class that represents a picture.  This class inherits from 
@@ -195,7 +197,27 @@ public class Picture extends SimplePicture
      */
     void averagePics(ArrayList<Picture> pictures)
     {
+        int red = 0;
+        int blue =0;
+        int green = 0;
+        Pixel[][] pixels = this.getPixels2D();
         
+        for(int row = 0; row < pixels.length; row++){
+            for (int col = 0; col < pixels.length; col++){
+                
+                
+                red = 0;
+                green = 0;
+                blue = 0;
+                for(Picture picture: pictures){
+                    int pixel = picture.getRGB(row,col);
+                    red += picture.getPixel(row,col).getRed();
+                    blue +=  picture.getPixel(row,col).getBlue();
+                    green +=  picture.getPixel(row,col).getGreen();
+                }
+                
+            }
+        }
     }
 
     /**

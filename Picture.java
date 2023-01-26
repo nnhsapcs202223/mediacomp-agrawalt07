@@ -197,28 +197,40 @@ public class Picture extends SimplePicture
      */
     void averagePics(ArrayList<Picture> pictures)
     {
-        int red = 0;
-        int blue =0;
-        int green = 0;
-        Pixel[][] pixels = this.getPixels2D();
+        ArrayList<Pixel[][]> picturesPixels = new ArrayList<Pixel[][]>();
         
-        for(int row = 0; row < pixels.length; row++){
-            for (int col = 0; col < pixels.length; col++){
+        for(Picture picture : pictures)
+        {
+            Pixel[][] pixels = picture.getPixels2D();
+            picturesPixels.add(pixels);
+        }
+        
+        Pixel[][] destPixels = this.getPixels2D();
+        
+        for(int row = 0; row < destPixels.length; row++)
+        {
+            for(int col = 0; col < destPixels[row].length; col++)
+            {
+                int redSum = 0;
+                int greenSum = 0;
+                int blueSum = 0;
                 
-                
-                red = 0;
-                green = 0;
-                blue = 0;
-                for(Picture picture: pictures){
-                    int pixel = picture.getRGB(row,col);
-                    red += picture.getPixel(row,col).getRed();
-                    blue +=  picture.getPixel(row,col).getBlue();
-                    green +=  picture.getPixel(row,col).getGreen();
+                for(Pixel[][] srcPixels : picturesPixels)
+                {
+                    Pixel srcPixel = srcPixels[row][col];
+                    redSum += srcPixel.getRed();
+                    greenSum += srcPixel.getGreen();
+                    blueSum += srcPixel.getBlue();
                 }
                 
+                Pixel destPixel = destPixels[row][col];
+                destPixel.setRed(redSum / picturesPixels.size());
+                destPixel.setGreen(greenSum / picturesPixels.size());
+                destPixel.setBlue(blueSum / picturesPixels.size());
             }
         }
     }
+    
 
     /**
      * Method to copy a region of the specified source Picture object into this Picture object

@@ -68,6 +68,19 @@ public class PictureTester
       Picture averagePic = new Picture(pics.get(0).getHeight(), pics.get(0).getWidth());
       averagePic.averagePics(pics);
       averagePic.explore();
+      pics.remove("faces/alex.jpg");
+      pics.remove("faces/alexander.jpg");
+      pics.remove("faces/alfred.jpg");
+      pics.remove("faces/ambroz.jpg");
+      
+    pics.add(new Picture("faces/zora.jpg"));
+      pics.add(new Picture("faces/zlatica.jpg"));
+      pics.add(new Picture("faces/zlata.jpg"));
+      pics.add(new Picture("faces/zita.jpg"));
+      averagePic = new Picture(pics.get(0).getHeight(), pics.get(0).getWidth());
+      averagePic.averagePics(pics);
+      averagePic.explore();      
+
   }
   
   /** Method to test cropAndCopy */

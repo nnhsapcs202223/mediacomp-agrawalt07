@@ -54,7 +54,9 @@ public class Collage extends Picture
       pics.add(source5);      
       Picture averagePic = new Picture(pics.get(0).getHeight(), pics.get(0).getWidth());
       averagePic.averagePics(pics);
-      averagePic.explore();
+    
+    averagePic.mirrorVerticalRightToLeft();
+
       
       
     destination.cropAndCopy(averagePic,0, averagePic.getHeight(), 0, averagePic.getWidth(),0, source.getWidth());

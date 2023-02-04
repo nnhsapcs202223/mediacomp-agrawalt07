@@ -6,7 +6,8 @@ import java.text.*;
 import java.util.*;
 import java.util.List;
 import java.awt.Color;
-import javax.imageio.ImageIO; // resolves problem with java.awt.List and java.util.List
+import javax.imageio.ImageIO;
+import java.util.Random; // resolves problem with java.awt.List and java.util.List
 
 /**
  * A class that represents a picture.  This class inherits from 
@@ -78,6 +79,22 @@ public class Picture extends SimplePicture
      * @return a string with information about the picture such as fileName,
      * height and width.
      */
+    
+    
+    public void grayScale(){
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                int blue = pixelObj.getBlue();
+                int red = pixelObj.getRed();
+                int green = pixelObj.getGreen();
+                int average = (red+blue+green)/3;
+                pixelObj.setColor(new Color(average, average, average));
+            }
+        }
+    }
     public String toString()
     {
         String output = "Picture, filename " + getFileName() + 
@@ -113,6 +130,31 @@ public class Picture extends SimplePicture
     }
     
     
+    public static void randomCropAndCopy(Picture picture){
+        Random r = new Random();
+        //int sHeight = r.nextInt(picture.getHeight())     random.nextInt(max + 1 - min) + min;
+        int eHeight = r.nextInt(picture.getHeight()+1-10)+10;
+        int eWidth = r.nextInt(picture.getWidth()+1-10)+10;
+        
+        int sHeight = r.nextInt(eHeight+1-10)+10;
+        int sWidth = r.nextInt(eWidth+1-10)+10;
+        
+        if(sHeight<eHeight && sWidth<eWidth){
+            picture.cropAndCopy(picture, eHeight, sHeight, eWidth, sWidth, eWidth, eHeight);
+        }
+            
+        else if(sHeight>eHeight && sWidth < eWidth){
+            picture.cropAndCopy(picture, eHeight, sHeight, sWidth, eWidth, sWidth, eHeight);
+        }
+        else if(sHeight<eHeight && sWidth>eWidth){
+            picture.cropAndCopy(picture, eHeight, sHeight, eWidth, sWidth, eWidth, eHeight);
+        }
+        else{
+            picture.cropAndCopy(picture, eHeight, sHeight, eWidth, sWidth, eWidth, eHeight);
+        }
+    }
+    
+    
     /** Method that mirrors the picture around a 
      * vertical mirror in the center of the picture
      * from left to right */
@@ -135,8 +177,20 @@ public class Picture extends SimplePicture
     
     public void mirrorVerticalRightToLeft(){
         Pixel[][] pixels = this.getPixels2D();
-        
-    }
+        Pixel leftPixel = null;
+        Pixel rightPixel = null;
+        int width = pixels[0].length;
+        for (int row = pixels.length-1; row > 0; row--)
+        {
+            for (int col = pixels[row].length-1; col > width/2 ; col--)
+            {
+                rightPixel = pixels[row][col];
+                leftPixel = pixels[row][width - 1 - col];
+                leftPixel.setColor(rightPixel.getColor());
+            }
+        } 
+    }        
+    
     
     /** Mirror just part of a picture of a temple */
     public void mirrorTemple()
@@ -251,7 +305,14 @@ public class Picture extends SimplePicture
     void cropAndCopy( Picture sourcePicture, int startSourceRow, int endSourceRow,
     int startSourceCol, int endSourceCol, int startDestRow, int startDestCol )
     {
-
+        Pixel p; 
+        for(int y = startSourceRow; y<endSourceRow; y++){
+            for(int x = startSourceCol; x<endSourceCol; x++){
+                p = sourcePicture.getPixel(x,y);
+                this.getPixel(x-startSourceCol+startDestCol,y-startSourceRow+startDestRow).setColor(sourcePicture.getPixel(x, y).getColor());
+            }
+            
+        }
     }
 
     /* Main method for testing - each class in Java can have a main 

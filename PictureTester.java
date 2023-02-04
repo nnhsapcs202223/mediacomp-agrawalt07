@@ -31,11 +31,11 @@ public class PictureTester
   
   
   /** Method to test mirrorVertical */
-  public static void testMirrorVertical()
+  public static void mirrorVerticalRightToLeft()
   {
     Picture caterpillar = new Picture("caterpillar.jpg");
     caterpillar.explore();
-    caterpillar.mirrorVertical();
+    caterpillar.mirrorVerticalRightToLeft();
     caterpillar.explore();
   }
   
@@ -119,17 +119,18 @@ public class PictureTester
     * method in Java */
   public static void main(String[] args)
   {
+      testCropAndCopy();
     // uncomment a call here to run a test
     // and comment out the ones you don't want
     // to run
     //testZeroBlue();
-    testKeepOnlyBlue();
+    //testKeepOnlyBlue();
     //testKeepOnlyRed();
     //testKeepOnlyGreen();
     //testNegate();
     //testGrayscale();
     //testFixUnderwater();
-    //testMirrorVertical();
+    mirrorVerticalRightToLeft();
     //testMirrorTemple();
     //testMirrorArms();
     //testMirrorGull();
